@@ -1,4 +1,6 @@
-let cachedData = {}
+let cachedData = {
+    retrieved: 0
+}
 export default async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=3600')
     // Hvis mer enn en time gammel
