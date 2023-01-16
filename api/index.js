@@ -10,12 +10,12 @@ export default async function handler(req, res) {
         fetch("https://driftsdata.statnett.no/restapi/Physicalflow/GetData?From=2023-01-01")
             .then(r => r.json())
             .then(d => {
-                res.send(d)
                 cachedData = {
                     retrieved: Date.now(),
                     delivered: 0,
                     data: d
                 }
+                res.send(cachedData)
             })
             .catch(e => { 
                 cachedData.error = e
