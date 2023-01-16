@@ -1,8 +1,4 @@
-let cachedData = {
-    retrieved: 0,
-    delivered: 0,
-    data: {}
-}
+let cachedData = {}
 export default async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=3600')
     // Hvis mer enn en time gammel
@@ -12,7 +8,7 @@ export default async function handler(req, res) {
             .then(d => {
                 cachedData = {
                     retrieved: Date.now(),
-                    delivered: 0,
+                    fromCache: false,
                     data: d
                 }
                 res.send(cachedData)
@@ -23,7 +19,7 @@ export default async function handler(req, res) {
             })
     }
     else {
-        cachedData.delivered++
+        cachedData.fromCache = true
         res.send(cachedData)
     }
 }
