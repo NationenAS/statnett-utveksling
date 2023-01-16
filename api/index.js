@@ -7,7 +7,7 @@ export default async function handler(req, res) {
                 retrieved: Date.now(),
                 data: d
             }
-            res.send(d)
+            res.send(data)
         })
         .catch(e => { console.log(e) })
 }
