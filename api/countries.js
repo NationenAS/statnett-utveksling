@@ -13,12 +13,9 @@ export default async function handler(req, res) {
     let from = "2023-01-01"
     let urlBase = "https://driftsdata.statnett.no/restapi/Physicalflow/GetData?From="
     let urls = countries.map(c => urlBase + from + "&Country=" + c)
-    let responses = []
-
-    Promise.all(urls.map(url => {
-        fetch(url)
-        .then(resp => resp.json())
-        .then(data => responses.push(data))
-    }))
-    .then(res.send(responses))
+    let requests = urls.map(url => fetch(url))
+    
+    Promise.all(requests)
+    .then(responses => Promise.all(responses.map(r => r.json())))
+    .then(data => res.send(data))
 }
