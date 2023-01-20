@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const countries = [ "se", "dk", "en", "de" ]
     const { body } = req
-    const from = (typeof body.from !== 'undefined') ? req.body.from : "2023-01-01"
+    const from = (typeof body.from !== 'undefined') ? body.from : "2023-01-01"
     const urlBase = "https://driftsdata.statnett.no/restapi/Physicalflow/GetData?From="
     const urls = countries.map(c => urlBase + from + "&Country=" + c)
     let requests = urls.map(url => fetch(url))
