@@ -10,15 +10,15 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=14400') // 4 hours
 
     let countries = [ "se", "dk", "en", "de" ]
-    let from = req.body.from || "2023-01-01"
+    let from = "2023-01-01"
     let urlBase = "https://driftsdata.statnett.no/restapi/Physicalflow/GetData?From="
     let urls = countries.map(c => urlBase + from + "&Country=" + c)
     let responses = []
 
-    Promise.all(urls.map(url => fetch(url)
-        .then(resp => resp.json()).then(data => responses.push(data))
-    ))
-    .then(
-        res.send(responses)
-    )
+    Promise.all(urls.map(url => {
+        fetch(url)
+        .then(resp => resp.json())
+        .then(data => responses.push(data))
+    }))
+    .then(res.send(responses))
 }
