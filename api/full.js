@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=14400') // 4 hours
 
     const countries = [ "se", "dk", "en", "de", "" ]
-    let from = "2023-01-01"
+    let from = "2024-01-01"
     req.body && req.body.from && (from = req.body.from)
     req.query && req.query.from && (from = req.query.from)
     const urlBase = "https://driftsdata.statnett.no/restapi/Physicalflow/GetData?From="
